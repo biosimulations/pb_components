@@ -17,11 +17,11 @@ if [ "$setup_py_version" != "$version" ]; then
 fi
 
 # Check working directory is clean
-#if [ ! -z "$(git status --untracked-files=no --porcelain)" ]; then
-#    echo "You have changes that have yet to be committed."
-#    echo "Aborting."
-#    exit 1
-#fi
+if [ ! -z "$(git status --untracked-files=no --porcelain)" ]; then
+    echo "You have changes that have yet to be committed."
+    echo "Aborting."
+    exit 1
+fi
 
 # Check that we are on master
 branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -33,7 +33,7 @@ fi
 
 # Create and push git tag
 git tag -m "Version v$version" "v$version"
-#git push --tags
+git push --tags
 
 # Create and publish package
 rm -rf dist
