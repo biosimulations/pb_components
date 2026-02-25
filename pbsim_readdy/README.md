@@ -18,4 +18,3 @@ Install conda: https://docs.conda.io/en/latest/miniconda.html
 2. Activate the environment: `conda activate multiscale-actin`
 3. Run example: `python3 multiscale_actin/processes/create_readdy_pbif.py`
 4. Visualize result with: https://simularium.allencell.org/viewer
-

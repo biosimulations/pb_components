@@ -16,10 +16,7 @@ from simulariumio import (
 
 
 class SimulariumEmitter(Emitter):
-    config_schema = {
-        "emit": "schema",
-        "output_dir": "string"
-    }
+    config_schema = {"emit": "schema", "output_dir": "string"}
 
     def __init__(self, config, core):
         super().__init__(config, core)
@@ -28,12 +25,12 @@ class SimulariumEmitter(Emitter):
 
     def update(self, state) -> Dict:
         if "particles" in state and "topologies" in state:
-            self.saved_data[state['global_time']] = state
+            self.saved_data[state["global_time"]] = state
         return {}
 
     def query(self, query=None):
         output = "" if "output_dir" not in self.config else self.config["output_dir"]
-        return {'result' : self.save_simularium_file(output)}
+        return {"result": self.save_simularium_file(output)}
 
     def get_simularium_monomers(
         self, time, monomers, actin_radius, position_offset, trajectory
@@ -63,8 +60,10 @@ class SimulariumEmitter(Emitter):
                     edge_ids.append(edge)
                     edge_positions.append(
                         (np.array(particle["position"]) + position_offset).tolist()
-                        + (np.array(monomers["particles"][neighbor_id]["position"])
-                        + position_offset).tolist()
+                        + (
+                            np.array(monomers["particles"][neighbor_id]["position"])
+                            + position_offset
+                        ).tolist()
                     )
         n_agents = len(trajectory["unique_ids"][time_index])
         n_edges = len(edge_ids)
@@ -99,7 +98,9 @@ class SimulariumEmitter(Emitter):
         """
         Shape a jagged list with 3 dimensions to a numpy array
         """
-        df = SimulariumEmitter.fill_df(pd.DataFrame(jagged_3d_list), length_per_item * [0.0])
+        df = SimulariumEmitter.fill_df(
+            pd.DataFrame(jagged_3d_list), length_per_item * [0.0]
+        )
         df_t = df.transpose()
         exploded = [df_t[col].explode() for col in list(df_t.columns)]
         result = np.array(exploded).reshape((df.shape[0], df.shape[1], length_per_item))
@@ -130,7 +131,9 @@ class SimulariumEmitter(Emitter):
                 pd.DataFrame(trajectory["n_subpoints"]), 0
             ).to_numpy(dtype=int),
             subpoints=scale_factor
-            * SimulariumEmitter.jagged_3d_list_to_numpy_array(trajectory["subpoints"], 6),
+            * SimulariumEmitter.jagged_3d_list_to_numpy_array(
+                trajectory["subpoints"], 6
+            ),
         )
 
     @staticmethod
@@ -161,7 +164,7 @@ class SimulariumEmitter(Emitter):
         Save the accumulated timeseries history of emitted data to file
         """
         actin_radius = 3.0
-        box_dimensions = np.array(3 * [150.])
+        box_dimensions = np.array(3 * [150.0])
         trajectory = {
             "times": [],
             "n_agents": [],
@@ -184,6 +187,9 @@ class SimulariumEmitter(Emitter):
         simularium_converter = SimulariumEmitter.get_simularium_converter(
             trajectory, box_dimensions, 0.1
         )
-        output_path = os.path.join(output_dir, f"readdy_result_{datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}")
+        output_path = os.path.join(
+            output_dir,
+            f"readdy_result_{datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')}",
+        )
         simularium_converter.save(output_path)
         return f"saved to {output_path}.simularium"
