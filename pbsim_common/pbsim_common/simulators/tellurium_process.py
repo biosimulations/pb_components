@@ -184,8 +184,7 @@ class TelluriumSteadyStateStep(TelluriumStep):
         }
 
         result = {
-            "jacobian": jacobian,
-            "steady_state": steady_state,
+            "_add": {"jacobian": jacobian, "steady_state": steady_state},
         }
 
         return {"result": result}
