@@ -8,7 +8,7 @@ with open("README.md", "r") as readme:
 
 setup(
     name="pb_multiscale_actin",
-    version="1.2.4",
+    version="1.2.5",
     packages=[
         "pb_multiscale_actin",
         "pb_multiscale_actin.processes",
@@ -28,6 +28,7 @@ setup(
     install_requires=[
         "vivarium-core",
         "process-bigraph",
+        "bigraph-schema",
         "simularium-readdy-models",
     ],
 )
