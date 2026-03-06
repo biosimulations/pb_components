@@ -2,7 +2,8 @@ import math
 import random
 
 import numpy as np
-from process_bigraph import ProcessTypes, Composite
+from bigraph_schema import allocate_core
+from process_bigraph import Composite
 from readdy import ReactionDiffusionSystem, Simulation
 from simularium_readdy_models import ReaddyUtil
 from simularium_readdy_models.actin import ActinSimulation
@@ -41,7 +42,7 @@ def test_readdy_actin_model() -> None:
 def test_readdy_actin_pb() -> None:
     state = generate_readdy_pbg(output_dir="")
 
-    core = ProcessTypes()
+    core = allocate_core()
     register_items_into_core(core)
 
     sim = Composite(

@@ -97,6 +97,7 @@ def simulate_readdy(internal_timestep: float, readdy_system: ReactionDiffusionSy
         n_steps = int(timestep / internal_timestep)
         print(f"running readdy for {n_steps} steps")
         for t in range(1, n_steps + 1):
+            print(f"step {t}")
             diffuse()
             update_nl()
             react()

@@ -1,11 +1,9 @@
-import random
 from typing import Any
 
 import numpy as np
-from process_bigraph import ProcessTypes, Composite
+from bigraph_schema import allocate_core, Core
+from process_bigraph import Composite
 from process_bigraph.emitter import emitter_from_wires, gather_emitter_results
-from simularium_readdy_models.actin import ActinGenerator, FiberData
-from simularium_readdy_models.common import get_membrane_monomers
 
 from pb_multiscale_actin.processes import ReaddyActinMembrane
 from pb_multiscale_actin.processes import SimulariumEmitter
@@ -93,7 +91,7 @@ def get_default_config() -> dict[str, Any]:
     }
 
 
-def register_items_into_core(core: ProcessTypes):
+def register_items_into_core(core: Core):
     particle = {
         "type_name": "string",
         "position": "tuple[float,float,float]",
@@ -105,14 +103,14 @@ def register_items_into_core(core: ProcessTypes):
         "particle_ids": "list[integer]",
         "_apply": "set",
     }
-    core.register("topology", topology)
-    core.register("particle", particle)
+    core.register_type("topology", topology)
+    core.register_type("particle", particle)
 
-    core.register_process(
+    core.register_link(
         "pb_multiscale_actin.processes.readdy_actin_membrane.ReaddyActinMembrane",
         ReaddyActinMembrane,
     )
-    core.register_process(
+    core.register_link(
         "pb_multiscale_actin.processes.simularium_emitter.SimulariumEmitter",
         SimulariumEmitter,
     )
@@ -145,7 +143,7 @@ def generate_readdy_pbg(output_dir):
 def run_readdy_actin_membrane(total_time=3):
     state = generate_readdy_pbg(output_dir="")
 
-    core = ProcessTypes()
+    core = allocate_core()
     register_items_into_core(core)
 
     sim = Composite(
