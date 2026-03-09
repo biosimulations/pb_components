@@ -5,7 +5,7 @@ from simularium_readdy_models.actin import ActinGenerator, FiberData
 from simularium_readdy_models.common import get_membrane_monomers
 
 
-def get_monomers():
+def get_monomers(membrane_particle_radius: float=25):
     actin_monomers = ActinGenerator.get_monomers(
         fibers_data=[
             FiberData(
@@ -31,7 +31,7 @@ def get_monomers():
     membrane_monomers = get_membrane_monomers(
         center=np.array([25.0, 0.0, 0.0]),
         size=np.array([0.0, 100.0, 100.0]),
-        particle_radius=2.5,
+        particle_radius=membrane_particle_radius,
         start_particle_id=len(actin_monomers["particles"].keys()),
         top_id=1,
     )
