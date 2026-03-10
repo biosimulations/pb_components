@@ -132,10 +132,15 @@ class ReaddyActinMembrane(Process):
 
     def update(self, inputs, interval: float):
         self.initialize(self.config, self.readdy_system)
-        compare_particles(inputs['particles'], pre_sim_particles, False)
-        compare_topologies(inputs['topologies'], pre_sim_topologies)
+        monomers = {
+            'particles': inputs['particles'],
+            'topologies': inputs['topologies'],
+        }
 
-        ReaddyUtil.add_monomers_from_data(self.readdy_simulation, inputs)
+        compare_particles(monomers['particles'], pre_sim_particles, False)
+        compare_topologies(monomers['topologies'], pre_sim_topologies)
+
+        ReaddyUtil.add_monomers_from_data(self.readdy_simulation, monomers)
 
         simulate_readdy(
             self.config["internal_timestep"],
