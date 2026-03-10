@@ -120,14 +120,14 @@ class ReaddyActinMembrane(Process):
 
     def inputs(self):
         return {
-            "topologies": "map[topology]",
-            "particles": "map[particle]",
+            "topologies": "map[overwrite[topology]]",
+            "particles": "map[overwrite[particle]]",
         }
 
     def outputs(self):
         return {
-            "topologies": "map[topology]",
-            "particles": "map[particle]",
+            "topologies": "map[overwrite[topology]]",
+            "particles": "map[overwrite[particle]]",
         }
 
     def update(self, inputs, interval: float):

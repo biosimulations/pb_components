@@ -95,13 +95,11 @@ def register_items_into_core(core: Core):
     particle = {
         "type_name": "string",
         "position": "tuple[float,float,float]",
-        "neighbor_ids": "list[integer]",
-        "_apply": "set",
+        "neighbor_ids": "overwrite[list[integer]]",
     }
     topology = {
         "type_name": "string",
-        "particle_ids": "list[integer]",
-        "_apply": "set",
+        "particle_ids": "overwrite[list[integer]]",
     }
     core.register_type("topology", topology)
     core.register_type("particle", particle)
