@@ -44,16 +44,18 @@ def get_monomers(membrane_particle_radius: float=25):
         start_top_id=2,
     )
     monomers = {
-        "particles": {**actin_monomers["particles"], **membrane_monomers["particles"]},
+        "particles": {
+            **actin_monomers["particles"],
+            **membrane_monomers["particles"],
+            **free_actin_monomers["particles"]
+        },
         "topologies": {
             **actin_monomers["topologies"],
             **membrane_monomers["topologies"],
+            **free_actin_monomers["topologies"],
         },
     }
-    monomers = {
-        "particles": {**monomers["particles"], **free_actin_monomers["particles"]},
-        "topologies": {**monomers["topologies"], **free_actin_monomers["topologies"]},
-    }
+
     return monomers
 
 
