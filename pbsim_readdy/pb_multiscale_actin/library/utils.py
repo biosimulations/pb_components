@@ -58,10 +58,6 @@ def get_monomers(membrane_particle_radius: float=25):
         },
     }
 
-    for i in monomers["particles"].keys():
-        pos = monomers["particles"][i]["position"]
-        monomers["particles"][i]["position"] = tuple(pos.tolist())
-
     return monomers
 
 

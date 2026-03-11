@@ -11,12 +11,7 @@ from simularium_readdy_models.actin import ActinSimulation
 from pb_multiscale_actin.create_readdy_pbif import generate_readdy_pbg, register_items_into_core, get_default_config
 from pb_multiscale_actin.library.utils import simulate_readdy, id_difference, get_monomers
 
-def compare_particles(particles: dict, ex_particles: dict, is_ndarray: bool = True) -> None:
-    if is_ndarray:
-        for k in particles.keys():
-            pos = particles[k]["position"]
-            particles[k]["position"] = tuple(pos.tolist())
-
+def compare_particles(particles: dict, ex_particles: dict) -> None:
     for k in range(len(particles.keys())):
         res_particles = particles[k]
         exp_particle = ex_particles[k]
@@ -54,7 +49,7 @@ def test_readdy_actin_model() -> None:
     readdy_system: ReactionDiffusionSystem = actin_sim.system
     readdy_simulation: Simulation = actin_sim.simulation
 
-    compare_particles(monomers['particles'], pre_sim_particles, False)
+    compare_particles(monomers['particles'], pre_sim_particles)
     compare_topologies(monomers['topologies'], expected_topologies)
 
     ReaddyUtil.add_monomers_from_data(readdy_simulation, monomers)
@@ -83,11 +78,11 @@ def test_readdy_actin_pb() -> None:
         core=core,
     )
 
-    compare_particles(sim.state["particles"], pre_sim_particles, False)
+    compare_particles(sim.state["particles"], pre_sim_particles)
     compare_topologies(sim.state["topologies"], expected_topologies)
     # simulate
     sim.run(1)  # time in ns
 
-    compare_particles(sim.state["particles"], expected_particles, False)
+    compare_particles(sim.state["particles"], expected_particles)
     compare_topologies(sim.state["topologies"], expected_topologies)
 

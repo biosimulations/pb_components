@@ -91,7 +91,7 @@ def get_default_config() -> dict[str, Any]:
 def register_items_into_core(core: Core):
     particle = {
         "type_name": "string",
-        "position": "tuple[float,float,float]",
+        "position": "array",
         "neighbor_ids": "overwrite[list[integer]]",
         "unique_id": "maybe[integer]"
     }
