@@ -80,6 +80,7 @@ def test_readdy_actin_pb() -> None:
 
     compare_particles(sim.state["particles"], pre_sim_particles)
     compare_topologies(sim.state["topologies"], expected_topologies)
+    assert sim.state["readdy"]["config"] == expected_config
     # simulate
     sim.run(1)  # time in ns
 
