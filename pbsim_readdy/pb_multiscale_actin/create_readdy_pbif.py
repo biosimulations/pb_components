@@ -1,19 +1,17 @@
 from typing import Any
 
-import numpy as np
 from bigraph_schema import allocate_core, Core
 from process_bigraph import Composite
 from process_bigraph.emitter import emitter_from_wires, gather_emitter_results
 
-from pb_multiscale_actin.processes import ReaddyActinMembrane
-from pb_multiscale_actin.processes import SimulariumEmitter
+from pb_multiscale_actin.processes import ReaddyActinMembrane, SimulariumEmitter
 
 
 def get_default_config() -> dict[str, Any]:
     return {
         "name": "actin_membrane",
         "internal_timestep": 0.1,  # ns
-        "box_size": np.array([float(150.0)] * 3),  # nm
+        "box_size": (150, 150, 150),  # nm
         "periodic_boundary": True,
         "reaction_distance": 1.0,  # nm
         "n_cpu": 4,
@@ -90,12 +88,12 @@ def get_default_config() -> dict[str, Any]:
         "random_seed": 0,
     }
 
-
 def register_items_into_core(core: Core):
     particle = {
         "type_name": "string",
         "position": "tuple[float,float,float]",
         "neighbor_ids": "overwrite[list[integer]]",
+        "unique_id": "maybe[integer]"
     }
     topology = {
         "type_name": "string",

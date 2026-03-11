@@ -1,4 +1,3 @@
-import math
 import random
 
 import numpy as np
@@ -57,6 +56,6 @@ def test_readdy_actin_pb() -> None:
     # simulate
     sim.run(1)  # time in ns
 
-    compare_particles(sim.state["particles"], expected_particles)
+    compare_particles(sim.state["particles"], expected_particles, False)
     compare_topologies(sim.state["topologies"], expected_topologies)
 

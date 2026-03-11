@@ -155,4 +155,8 @@ class ReaddyActinMembrane(Process):
             self.readdy_simulation.current_topologies, id_diff
         )
 
+        for k in readdy_monomers['particles']:
+            pos = readdy_monomers['particles'][k]['position']
+            readdy_monomers['particles'][k]['position'] = tuple(pos.tolist())
+
         return readdy_monomers
