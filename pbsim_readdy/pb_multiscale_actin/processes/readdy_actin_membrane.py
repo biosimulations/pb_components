@@ -8,8 +8,7 @@ from simularium_readdy_models.actin import (
 )
 from simularium_readdy_models.common import ReaddyUtil
 
-from pb_multiscale_actin.library.utils import get_monomers, simulate_readdy, id_difference, compare_particles, \
-    pre_sim_particles, compare_topologies, pre_sim_topologies
+from pb_multiscale_actin.library.utils import get_monomers, simulate_readdy, id_difference
 
 
 class ReaddyActinMembrane(Process):
@@ -136,9 +135,6 @@ class ReaddyActinMembrane(Process):
             'particles': inputs['particles'],
             'topologies': inputs['topologies'],
         }
-
-        compare_particles(monomers['particles'], pre_sim_particles, False)
-        compare_topologies(monomers['topologies'], pre_sim_topologies)
 
         ReaddyUtil.add_monomers_from_data(self.readdy_simulation, monomers)
 
