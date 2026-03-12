@@ -1,3 +1,4 @@
+import copy
 import math
 import random
 
@@ -44,7 +45,7 @@ def test_readdy_actin_model() -> None:
     np.random.seed(0)
     monomers = get_monomers()
 
-    config = get_default_config()
+    config = copy.deepcopy(expected_config)
     actin_sim = ActinSimulation(config, False, False)
     readdy_system: ReactionDiffusionSystem = actin_sim.system
     readdy_simulation: Simulation = actin_sim.simulation

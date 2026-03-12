@@ -19,81 +19,81 @@ class ReaddyActinMembrane(Process):
 
     config_schema = {
         "name": "string",
-        "internal_timestep": "float",
-        "box_size": "tuple[float,float,float]",
-        "periodic_boundary": "boolean",
-        "reaction_distance": "float",
-        "n_cpu": "integer",
-        "only_linear_actin_constraints": "boolean",
-        "reactions": "boolean",
-        "dimerize_rate": "float",
-        "dimerize_reverse_rate": "float",
-        "trimerize_rate": "float",
-        "trimerize_reverse_rate": "float",
-        "pointed_growth_ATP_rate": "float",
-        "pointed_growth_ADP_rate": "float",
-        "pointed_shrink_ATP_rate": "float",
-        "pointed_shrink_ADP_rate": "float",
-        "barbed_growth_ATP_rate": "float",
-        "barbed_growth_ADP_rate": "float",
-        "nucleate_ATP_rate": "float",
-        "nucleate_ADP_rate": "float",
-        "barbed_shrink_ATP_rate": "float",
-        "barbed_shrink_ADP_rate": "float",
-        "arp_bind_ATP_rate": "float",
-        "arp_bind_ADP_rate": "float",
-        "arp_unbind_ATP_rate": "float",
-        "arp_unbind_ADP_rate": "float",
-        "barbed_growth_branch_ATP_rate": "float",
-        "barbed_growth_branch_ADP_rate": "float",
-        "debranching_ATP_rate": "float",
-        "debranching_ADP_rate": "float",
-        "cap_bind_rate": "float",
-        "cap_unbind_rate": "float",
-        "hydrolysis_actin_rate": "float",
-        "hydrolysis_arp_rate": "float",
-        "nucleotide_exchange_actin_rate": "float",
-        "nucleotide_exchange_arp_rate": "float",
-        "verbose": "boolean",
-        "use_box_actin": "boolean",
-        "use_box_arp": "boolean",
-        "use_box_cap": "boolean",
-        "obstacle_radius": "float",
-        "obstacle_diff_coeff": "float",
-        "use_box_obstacle": "boolean",
-        "position_obstacle_stride": "integer",
-        "displace_pointed_end_tangent": "boolean",
-        "displace_pointed_end_radial": "boolean",
-        "tangent_displacement_nm": "float",
-        "radial_displacement_radius_nm": "float",
-        "radial_displacement_angle_deg": "float",
-        "longitudinal_bonds": "boolean",
-        "displace_stride": "integer",
-        "bonds_force_multiplier": "float",
-        "angles_force_constant": "float",
-        "dihedrals_force_constant": "float",
-        "actin_constraints": "boolean",
-        "use_box_actin": "boolean",
-        "actin_box_center_x": "float",
-        "actin_box_center_y": "float",
-        "actin_box_center_z": "float",
-        "actin_box_size_x": "float",
-        "actin_box_size_y": "float",
-        "actin_box_size_z": "float",
-        "add_extra_box": "boolean",
-        "barbed_binding_site": "boolean",
-        "binding_site_reaction_distance": "float",
-        "add_membrane": "boolean",
-        "membrane_center_x": "float",
-        "membrane_center_y": "float",
-        "membrane_center_z": "float",
-        "membrane_size_x": "float",
-        "membrane_size_y": "float",
-        "membrane_size_z": "float",
-        "membrane_particle_radius": "float",
-        "obstacle_controlled_position_x": "float",
-        "obstacle_controlled_position_y": "float",
-        "obstacle_controlled_position_z": "float",
+        "internal_timestep": "float{0.1}", # ns
+        "box_size": "tuple[float,float,float]{150, 150, 150}",
+        "periodic_boundary": "boolean{true}",
+        "reaction_distance": "float{1.0}", # nm
+        "n_cpu": "integer{4}",
+        "only_linear_actin_constraints": "boolean{true}",
+        "reactions": "boolean{true}",
+        "dimerize_rate": "float{1e-30}", # 1/ns
+        "dimerize_reverse_rate": "float{1.4e-9}", # 1/ns
+        "trimerize_rate": "float{2.1e-2}", # 1/ns
+        "trimerize_reverse_rate": "float{1.4e-9}", # 1/ns
+        "pointed_growth_ATP_rate": "float{2.4e-5}", # 1/ns
+        "pointed_growth_ADP_rate": "float{2.95e-6}", # 1/ns
+        "pointed_shrink_ATP_rate": "float{8.0e-10}", # 1/ns
+        "pointed_shrink_ADP_rate": "float{3.0e-10}", # 1/ns
+        "barbed_growth_ATP_rate": "float{1e30}", # 1/ns
+        "barbed_growth_ADP_rate": "float{7.0e-5}", # 1/ns
+        "nucleate_ATP_rate": "float{2.1e-2}", # 1/ns
+        "nucleate_ADP_rate": "float{7.0e-5}", # 1/ns
+        "barbed_shrink_ATP_rate": "float{1.4e-9}", # 1/ns
+        "barbed_shrink_ADP_rate": "float{8.0e-9}", # 1/ns
+        "arp_bind_ATP_rate": "float{2.1e-2}", # 1/ns
+        "arp_bind_ADP_rate": "float{7.0e-5}", # 1/ns
+        "arp_unbind_ATP_rate": "float{1.4e-9}", # 1/ns
+        "arp_unbind_ADP_rate": "float{8.0e-9}", # 1/ns
+        "barbed_growth_branch_ATP_rate": "float{2.1e-2}", # 1/ns
+        "barbed_growth_branch_ADP_rate": "float{7.0e-5}", # 1/ns
+        "debranching_ATP_rate": "float{1.4e-9}", # 1/ns
+        "debranching_ADP_rate": "float{7.0e-5}", # 1/ns
+        "cap_bind_rate": "float{2.1e-2}", # 1/ns
+        "cap_unbind_rate": "float{1.4e-9}", # 1/ns
+        "hydrolysis_actin_rate": "float{1e-30}", # 1/ns
+        "hydrolysis_arp_rate": "float{3.5e-5}", # 1/ns
+        "nucleotide_exchange_actin_rate": "float{1e-5}", # 1/ns
+        "nucleotide_exchange_arp_rate": "float{1e-5}", # 1/ns
+        "verbose": "boolean{false}",
+        "use_box_actin": "boolean{true}",
+        "use_box_arp": "boolean{false}",
+        "use_box_cap": "boolean{false}",
+        "obstacle_radius": "float{0.0}",
+        "obstacle_diff_coeff": "float{0.0}",
+        "use_box_obstacle": "boolean{false}",
+        "position_obstacle_stride": "integer{0}",
+        "displace_pointed_end_tangent": "boolean{false}",
+        "displace_pointed_end_radial": "boolean{false}",
+        "tangent_displacement_nm": "float{0.0}",
+        "radial_displacement_radius_nm": "float{0.0}",
+        "radial_displacement_angle_deg": "float{0.0}",
+        "longitudinal_bonds": "boolean{true}",
+        "displace_stride": "integer{1}",
+        "bonds_force_multiplier": "float{0.2}",
+        "angles_force_constant": "float{1000.0}",
+        "dihedrals_force_constant": "float{1000.0}",
+        "actin_constraints": "boolean{true}",
+        "use_box_actin": "boolean{true}",
+        "actin_box_center_x": "float{12.0}",
+        "actin_box_center_y": "float{0.0}",
+        "actin_box_center_z": "float{0.0}",
+        "actin_box_size_x": "float{20.0}",
+        "actin_box_size_y": "float{50.0}",
+        "actin_box_size_z": "float{50.0}",
+        "add_extra_box": "boolean{false}",
+        "barbed_binding_site": "boolean{true}",
+        "binding_site_reaction_distance": "float{3.0}",
+        "add_membrane": "boolean{true}",
+        "membrane_center_x": "float{25.0}",
+        "membrane_center_y": "float{0.0}",
+        "membrane_center_z": "float{0.0}",
+        "membrane_size_x": "float{0.0}",
+        "membrane_size_y": "float{100.0}",
+        "membrane_size_z": "float{100.0}",
+        "membrane_particle_radius": "float{2.5}",
+        "obstacle_controlled_position_x": "float{0.0}",
+        "obstacle_controlled_position_y": "float{0.0}",
+        "obstacle_controlled_position_z": "float{0.0}",
         "random_seed": "integer",
         "total_steps": "float",
         "actin_concentration": "integer",  # 0
