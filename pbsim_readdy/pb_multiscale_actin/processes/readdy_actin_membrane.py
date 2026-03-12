@@ -115,7 +115,7 @@ class ReaddyActinMembrane(Process):
         self.readdy_simulation: Simulation = actin_simulation.simulation
 
     def initial_state(self):
-        return get_monomers()
+        return get_monomers(self.config)
 
     def inputs(self):
         return {
