@@ -80,6 +80,7 @@ class ReaddyActinMembrane(Process):
         "actin_box_size_x": "float{20.0}",
         "actin_box_size_y": "float{50.0}",
         "actin_box_size_z": "float{50.0}",
+        "actin_concentration": "float{500.0}",
         "add_extra_box": "boolean{false}",
         "barbed_binding_site": "boolean{true}",
         "binding_site_reaction_distance": "float{3.0}",
@@ -96,10 +97,10 @@ class ReaddyActinMembrane(Process):
         "obstacle_controlled_position_z": "float{0.0}",
         "random_seed": "integer",
         "total_steps": "float",
-        "actin_concentration": "integer",  # 0
         "arp23_concentration": "integer",  # 0
         "cap_concentration": "integer",  # 0
-        "n_fixed_monomers_barbed": "integer",  # 0
+        "n_fixed_monomers_barbed": "integer{0}",
+        "n_fixed_monomers_pointed": "integer{3}",
         "tangent_displace_speed_um_s": "float",
         "plot_actin_compression": "boolean",  # true
         "visualize_edges": "boolean",  # true
