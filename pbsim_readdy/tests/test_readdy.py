@@ -1,6 +1,8 @@
 import copy
 import math
+import os
 import random
+import tempfile
 
 import numpy as np
 from bigraph_schema import allocate_core
@@ -69,23 +71,29 @@ def test_readdy_actin_model() -> None:
 def test_readdy_actin_pb() -> None:
     state = generate_readdy_pbg(output_dir="")
     state['readdy']['config']['membrane_particle_radius'] = 25
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path_to_test = f"{tmpdir}{os.sep}"
+        state['readdy']['config']['name'] = f"{path_to_test}acting_membrane"
 
-    core = allocate_core()
-    register_items_into_core(core)
+        core = allocate_core()
+        register_items_into_core(core)
 
-    sim = Composite(
-        {
-            "state": state,
-        },
-        core=core,
-    )
+        sim = Composite(
+            {
+                "state": state,
+            },
+            core=core,
+        )
 
-    compare_particles(sim.state["particles"], pre_sim_particles)
-    compare_topologies(sim.state["topologies"], expected_topologies)
-    assert sim.state["readdy"]["config"] == expected_config
-    # simulate
-    sim.run(1)  # time in ns
+        compare_particles(sim.state["particles"], pre_sim_particles)
+        compare_topologies(sim.state["topologies"], expected_topologies)
+        config = copy.deepcopy(expected_config)
+        config['name'] = f"{path_to_test}acting_membrane"
+        assert sim.state["readdy"]["config"] == config
+        # simulate
+        sim.run(1)  # time in ns
 
-    compare_particles(sim.state["particles"], expected_particles)
-    compare_topologies(sim.state["topologies"], expected_topologies)
+        compare_particles(sim.state["particles"], expected_particles)
+        compare_topologies(sim.state["topologies"], expected_topologies)
+        assert os.path.exists(f"{path_to_test}acting_membrane.h5")
 

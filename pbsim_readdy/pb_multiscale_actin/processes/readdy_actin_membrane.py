@@ -111,7 +111,7 @@ class ReaddyActinMembrane(Process):
     def initialize(self, config, readdy_system=None):
         random.seed(self.config["random_seed"])
         np.random.seed(self.config["random_seed"])
-        actin_simulation = ActinSimulation(self.config, False, False, readdy_system)
+        actin_simulation = ActinSimulation(self.config, True, False, readdy_system)
         self.readdy_system: ReactionDiffusionSystem = actin_simulation.system
         self.readdy_simulation: Simulation = actin_simulation.simulation
 
