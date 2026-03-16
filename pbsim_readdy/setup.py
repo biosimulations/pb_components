@@ -8,12 +8,13 @@ with open("README.md", "r") as readme:
 
 setup(
     name="pb_multiscale_actin",
-    version="1.3.0",
+    version="1.3.1",
     packages=[
         "pb_multiscale_actin",
         "pb_multiscale_actin.processes",
         "pb_multiscale_actin.composites",
         "pb_multiscale_actin.experiments",
+        "pb_multiscale_actin.library",
     ],
     author="Ezequiel Valencia",
     author_email="ezq.valencia@pm.me",
