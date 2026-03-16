@@ -8,15 +8,15 @@ with open("README.md", "r") as readme:
 
 setup(
     name="pb_multiscale_actin",
-    version="1.2.5",
+    version="1.3.0",
     packages=[
         "pb_multiscale_actin",
         "pb_multiscale_actin.processes",
         "pb_multiscale_actin.composites",
         "pb_multiscale_actin.experiments",
     ],
-    author="Blair Lyons",
-    author_email="blair208@gmail.com",
+    author="Ezequiel Valencia",
+    author_email="ezq.valencia@pm.me",
     url="",
     license="Apache Software License 2.0",
     entry_points={"console_scripts": []},
