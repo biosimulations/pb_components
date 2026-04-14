@@ -24,39 +24,47 @@ def get_monomers(config: dict):
         longitudinal_bonds=True,
         barbed_binding_site=True,
     )
-    actin_monomers = ActinGenerator.setup_fixed_monomers(
-        actin_monomers,
-        orthogonal_seed=True,
-        n_fixed_monomers_pointed=config['n_fixed_monomers_pointed'],
-        n_fixed_monomers_barbed=config['n_fixed_monomers_barbed'],
-    )
-    membrane_monomers = get_membrane_monomers(
-        center=np.array([config['membrane_center_x'], config['membrane_center_y'], config['membrane_center_z']]),
-        size=np.array([config['membrane_size_x'], config['membrane_size_y'], config['membrane_size_z']]),
-        particle_radius=config['membrane_particle_radius'],
-        start_particle_id=len(actin_monomers["particles"].keys()),
-        top_id=1,
-    )
-    free_actin_monomers = ActinGenerator.get_free_actin_monomers(
-        concentration=config['actin_concentration'],
-        box_center=np.array([config['actin_box_center_x'], config['actin_box_center_y'], config['actin_box_center_z']]),
-        box_size=np.array([config['actin_box_size_x'], config['actin_box_size_y'], config['actin_box_size_z']]),
-        start_particle_id=len(actin_monomers["particles"].keys())
-        + len(membrane_monomers["particles"].keys()),
-        start_top_id=2,
-    )
-    monomers = {
-        "particles": {
-            **actin_monomers["particles"],
-            **membrane_monomers["particles"],
-            **free_actin_monomers["particles"]
-        },
-        "topologies": {
-            **actin_monomers["topologies"],
-            **membrane_monomers["topologies"],
-            **free_actin_monomers["topologies"],
-        },
-    }
+    counter_id = 0
+    monomers = {}
+    if config['add_filament']:
+        actin_monomers = ActinGenerator.setup_fixed_monomers(
+            actin_monomers,
+            orthogonal_seed=True,
+            n_fixed_monomers_pointed=config['n_fixed_monomers_pointed'],
+            n_fixed_monomers_barbed=config['n_fixed_monomers_barbed'],
+        )
+        counter_id += len(actin_monomers["particles"])
+        free_actin_monomers = ActinGenerator.get_free_actin_monomers(
+            concentration=config['actin_concentration'],
+            box_center=np.array(
+                [config['actin_box_center_x'], config['actin_box_center_y'], config['actin_box_center_z']]),
+            box_size=np.array([config['actin_box_size_x'], config['actin_box_size_y'], config['actin_box_size_z']]),
+            start_particle_id=counter_id,
+            start_top_id=2,
+        )
+        counter_id += len(free_actin_monomers["particles"])
+        monomers.update({
+            "particles": {
+                **actin_monomers["particles"],
+                **free_actin_monomers["particles"]
+            },
+            "topologies": {
+                **actin_monomers["topologies"],
+                **free_actin_monomers["topologies"]
+            }
+        })
+    if config["add_membrane"]:
+        membrane_monomers = get_membrane_monomers(
+            center=np.array([config['membrane_center_x'], config['membrane_center_y'], config['membrane_center_z']]),
+            size=np.array([config['membrane_size_x'], config['membrane_size_y'], config['membrane_size_z']]),
+            particle_radius=config['membrane_particle_radius'],
+            start_particle_id=counter_id,
+            top_id=1,
+        )
+        for k, v in membrane_monomers['particles'].items():
+            monomers['particles'].update({k: v})
+        for k, v in membrane_monomers['topologies'].items():
+            monomers['topologies'].update({k: v})
 
     return monomers
 

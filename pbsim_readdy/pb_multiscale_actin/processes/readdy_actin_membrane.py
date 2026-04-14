@@ -106,6 +106,7 @@ class ReaddyActinMembrane(Process):
         "visualize_edges": "boolean",  # true
         "visualize_normals": "boolean",  # true
         "visualize_control_pts": "boolean",  # true
+        "add_filament": "boolean{true}",
     }
 
     def initialize(self, config, readdy_system=None):
